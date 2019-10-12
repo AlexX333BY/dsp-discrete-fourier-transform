@@ -1,4 +1,5 @@
 import math
+import cmath
 
 
 class DirectFourierTransformer:
@@ -26,12 +27,10 @@ class DirectFourierTransformer:
                           self.get_cosine_component_amplitude(harmonic_number))
 
     def get_amplitude_spectrum(self):
-        sequence_length = len(self.__sequence)
-        return [self.get_amplitude(j) for j in range(sequence_length)]
+        return [self.get_amplitude(j) for j in range(len(self.__sequence))]
 
     def get_phase_spectrum(self):
-        sequence_length = len(self.__sequence)
-        return [self.get_initial_phase(j) for j in range(sequence_length)]
+        return [self.get_initial_phase(j) for j in range(len(self.__sequence))]
 
 
 class InverseFourierTransformer:
@@ -55,3 +54,25 @@ class InverseFourierTransformer:
                 + sum(self.__amplitude_spectrum[j] * math.cos(trigonometric_const_part * j * i - phases[j])
                       for j in terms_count_range)
                 for i in range(self.__spectrum_length)]
+
+
+class FastFourierTransformer:
+    def __init__(self, sequence):
+        self.__sequence = sequence
+
+    def __transform(self, sequence):
+        sequence_length = len(sequence)
+        if sequence_length != 1:
+            even = self.__transform(sequence[::2])
+            odd = self.__transform(sequence[1::2])
+            turning_ratios = [cmath.exp(-2j * cmath.pi * r / sequence_length) for r in range(sequence_length // 2)]
+            return [even[i] + turning_ratios[i] * odd[i] for i in range(sequence_length // 2)] \
+                   + [even[i] - turning_ratios[i] * odd[i] for i in range(sequence_length // 2)]
+        else:
+            return sequence
+
+    def get_amplitude_spectrum(self):
+        return [abs(x) * 2 / len(self.__sequence) for x in self.__transform(self.__sequence)]
+
+    def get_phase_spectrum(self):
+        return [-math.atan2(x.imag, x.real) for x in self.__transform(self.__sequence)]
