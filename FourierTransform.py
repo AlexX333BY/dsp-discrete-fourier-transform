@@ -8,22 +8,18 @@ class FourierTransformer:
     def get_cosine_component_amplitude(self, harmonic_number):
         sequence_length = len(self.__sequence)
         trigonometric_const_part = 2 * math.pi * harmonic_number / sequence_length
-        cosine_component = 0
-        for i in range(sequence_length):
-            cosine_component += self.__sequence[i] * math.cos(trigonometric_const_part * i)
-        return 2 * cosine_component / sequence_length
+        return 2 * sum(x * math.cos(trigonometric_const_part * i) for i, x in enumerate(self.__sequence)) \
+               / sequence_length
 
     def get_sinus_component_amplitude(self, harmonic_number):
         sequence_length = len(self.__sequence)
         trigonometric_const_part = 2 * math.pi * harmonic_number / sequence_length
-        sinus_component = 0
-        for i in range(sequence_length):
-            sinus_component += self.__sequence[i] * math.sin(trigonometric_const_part * i)
-        return 2 * sinus_component / sequence_length
+        return 2 * sum(x * math.sin(trigonometric_const_part * i) for i, x in enumerate(self.__sequence)) \
+               / sequence_length
 
     def get_amplitude(self, harmonic_number):
-        return math.sqrt(self.get_cosine_component_amplitude(harmonic_number) ** 2
-                         + self.get_sinus_component_amplitude(harmonic_number) ** 2)
+        return math.hypot(self.get_cosine_component_amplitude(harmonic_number),
+                          self.get_sinus_component_amplitude(harmonic_number))
 
     def get_initial_phase(self, harmonic_number):
         return math.atan(self.get_sinus_component_amplitude(harmonic_number)
