@@ -24,3 +24,11 @@ class FourierTransformer:
     def get_initial_phase(self, harmonic_number):
         return math.atan(self.get_sinus_component_amplitude(harmonic_number)
                          / self.get_cosine_component_amplitude(harmonic_number))
+
+    def get_amplitude_spectrum(self):
+        sequence_length = len(self.__sequence)
+        return [self.get_amplitude(j) for j in range(sequence_length)]
+
+    def get_phase_spectrum(self):
+        sequence_length = len(self.__sequence)
+        return [self.get_initial_phase(j) for j in range(sequence_length)]
