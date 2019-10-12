@@ -1,7 +1,7 @@
 import math
 
 
-class FourierTransformer:
+class DirectFourierTransformer:
     def __init__(self, sequence):
         self.__sequence = sequence
 
@@ -32,3 +32,17 @@ class FourierTransformer:
     def get_phase_spectrum(self):
         sequence_length = len(self.__sequence)
         return [self.get_initial_phase(j) for j in range(sequence_length)]
+
+
+class InverseFourierTransformer:
+    def __init__(self, amplitude_spectrum, phase_spectrum):
+        self.__spectrum_length = min(len(amplitude_spectrum), len(phase_spectrum))
+        self.__amplitude_spectrum = amplitude_spectrum[:self.__spectrum_length]
+        self.__phase_spectrum = phase_spectrum[:self.__spectrum_length]
+
+    def restore_harmonic(self):
+        terms_count_range = range(self.__spectrum_length // 2)
+        trigonometric_const_part = 2 * math.pi / self.__spectrum_length
+        return [sum(self.__amplitude_spectrum[j] * math.cos(trigonometric_const_part * j * i - self.__phase_spectrum[j])
+                    for j in terms_count_range)
+                for i in range(self.__spectrum_length)]
