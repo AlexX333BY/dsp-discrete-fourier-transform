@@ -109,7 +109,7 @@ def main():
     parser.add_argument('-t', '--task', action='store', required=True, help='task number',
                         choices=tasks_callbacks.keys(), dest='task', type=int)
     parser.add_argument('-l', '--length', action='store', required=False, help='sequence length', dest='length',
-                        type=int, default=1024)
+                        type=int, default=64)
     parser.add_argument('-f', '--phase-filter', action='store', required=False, help='when to set phase spectrum to 0',
                         dest='filter', type=float, default=0.001)
 
