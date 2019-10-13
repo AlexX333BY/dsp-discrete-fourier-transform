@@ -29,10 +29,10 @@ def task_2(sequence_length, phase_filtering):
     restored_sequence = InverseFourierTransformer(amplitude_spectrum, phase_spectrum).restore_harmonic()
 
     drawer = GraphDrawer()
-    drawer.add_graph(Graph(range(sequence_length), harmonic_sequence, "Original sequence"))
-    drawer.add_graph(Graph(range(sequence_length), amplitude_spectrum, "Amplitude spectrum"))
-    drawer.add_graph(Graph(range(sequence_length), phase_spectrum, "Phase spectrum"))
-    drawer.add_graph(Graph(range(sequence_length), restored_sequence, "Restored sequence"))
+    drawer.add_plot(Graph(range(sequence_length), harmonic_sequence, "Original sequence"))
+    drawer.add_stem(Graph(range(sequence_length), amplitude_spectrum, "Amplitude spectrum"))
+    drawer.add_stem(Graph(range(sequence_length), phase_spectrum, "Phase spectrum"))
+    drawer.add_plot(Graph(range(sequence_length), restored_sequence, "Restored sequence"))
     drawer.draw()
     drawer.show()
 
@@ -48,11 +48,11 @@ def task_3(sequence_length, phase_filtering):
         = InverseFourierTransformer(amplitude_spectrum, phase_spectrum).restore_polyharmonic(False)
 
     drawer = GraphDrawer()
-    drawer.add_graph(Graph(range(sequence_length), polyharmonic_sequence, "Original sequence"))
-    drawer.add_graph(Graph(range(sequence_length), amplitude_spectrum, "Amplitude spectrum"))
-    drawer.add_graph(Graph(range(sequence_length), phase_spectrum, "Phase spectrum"))
-    drawer.add_graph(Graph(range(sequence_length), restored_sequence, "Restored sequence"))
-    drawer.add_graph(Graph(range(sequence_length), restored_sequence_without_phases,
+    drawer.add_plot(Graph(range(sequence_length), polyharmonic_sequence, "Original sequence"))
+    drawer.add_stem(Graph(range(sequence_length), amplitude_spectrum, "Amplitude spectrum"))
+    drawer.add_stem(Graph(range(sequence_length), phase_spectrum, "Phase spectrum"))
+    drawer.add_plot(Graph(range(sequence_length), restored_sequence, "Restored sequence"))
+    drawer.add_plot(Graph(range(sequence_length), restored_sequence_without_phases,
                            "Restored sequence w/o phase spectrum"))
     drawer.draw()
     drawer.show()
@@ -67,10 +67,10 @@ def task_4(sequence_length, phase_filtering):
     restored_sequence = InverseFourierTransformer(amplitude_spectrum, phase_spectrum).restore_polyharmonic(True)
 
     drawer = GraphDrawer()
-    drawer.add_graph(Graph(range(sequence_length), polyharmonic_sequence, "Original sequence"))
-    drawer.add_graph(Graph(range(sequence_length), amplitude_spectrum, "Amplitude spectrum"))
-    drawer.add_graph(Graph(range(sequence_length), phase_spectrum, "Phase spectrum"))
-    drawer.add_graph(Graph(range(sequence_length), restored_sequence, "Restored sequence"))
+    drawer.add_plot(Graph(range(sequence_length), polyharmonic_sequence, "Original sequence"))
+    drawer.add_stem(Graph(range(sequence_length), amplitude_spectrum, "Amplitude spectrum"))
+    drawer.add_stem(Graph(range(sequence_length), phase_spectrum, "Phase spectrum"))
+    drawer.add_plot(Graph(range(sequence_length), restored_sequence, "Restored sequence"))
     drawer.draw()
     drawer.show()
 
@@ -92,12 +92,12 @@ def task_5(sequence_length, phase_filtering):
     restored = InverseFourierTransformer(filtered.amplitude, filtered.phase).restore_polyharmonic()
 
     drawer = GraphDrawer()
-    drawer.add_graph(Graph(range(sequence_length), polyharmonic_sequence, "Original sequence"))
-    drawer.add_graph(Graph(range(sequence_length), amplitude_spectrum, "Amplitude spectrum"))
-    drawer.add_graph(Graph(range(sequence_length), phase_spectrum, "Phase spectrum"))
-    drawer.add_graph(Graph(range(sequence_length), filtered.amplitude, "Filtered amplitude"))
-    drawer.add_graph(Graph(range(sequence_length), filtered.phase, "Filtered phase"))
-    drawer.add_graph(Graph(range(sequence_length), restored, "Restored filtered"))
+    drawer.add_plot(Graph(range(sequence_length), polyharmonic_sequence, "Original sequence"))
+    drawer.add_stem(Graph(range(sequence_length), amplitude_spectrum, "Amplitude spectrum"))
+    drawer.add_stem(Graph(range(sequence_length), phase_spectrum, "Phase spectrum"))
+    drawer.add_stem(Graph(range(sequence_length), filtered.amplitude, "Filtered amplitude"))
+    drawer.add_stem(Graph(range(sequence_length), filtered.phase, "Filtered phase"))
+    drawer.add_plot(Graph(range(sequence_length), restored, "Restored filtered"))
     drawer.draw()
     drawer.show()
 
